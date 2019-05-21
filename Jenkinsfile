@@ -3,6 +3,8 @@ node{
     git 'https://github.com/alexix-98/JenkinsProject'
   }
   stage('Compile-Package-with-Maven'){
-    sh 'mvn package'
+    // Get maven home path
+    def mvnHome = tool name: 'Maven', type: 'maven'
+    sh "${mvnHome}/bin/mvn package"
   }
 }
