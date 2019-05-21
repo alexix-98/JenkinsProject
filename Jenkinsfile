@@ -10,6 +10,8 @@ stage('SCM Checkout') {
 
 stage('Compile-Package-with-Maven') {
   // Get maven home path
-  def mvnHome = tool name: 'Maven', type: 'maven'
-  sh "${mvnHome}/bin/mvn package"    
+  node {
+    def mvnHome = tool name: 'Maven', type: 'maven'
+    sh "${mvnHome}/bin/mvn package"    
+  }
 }
