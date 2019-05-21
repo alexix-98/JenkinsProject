@@ -11,16 +11,8 @@ stage('SCM Checkout') {
 stage('Compile-Package-with-Maven') {
   // Get maven home path
   node {
-    //def mvnHome = tool name: 'Maven', type: 'maven'
-    //sh "${mvnHome}/bin/mvn package"    
-    def server = Artifactory.server "SERVER_ID"
-    def rtMaven = Artifactory.newMavenBuild()
-    def buildInfo
-    rtMaven.tool = "Maven-3.3.9"
-    rtMaven.deployer releaseRepo:'libs-release-local', snapshotRepo:'libs-snapshot-local', server: server
-    rtMaven.resolver releaseRepo:'libs-release', snapshotRepo:'libs-snapshot', server: server
-    buildInfo = rtMaven.run pom: 'maven-example/pom.xml', goals: 'clean install'
-    server.publishBuildInfo buildInfo
+    def mvnHome = tool name: 'Maven', type: 'maven'
+    sh "${mvnHome}/bin/mvn package"   
   }
 }
 
